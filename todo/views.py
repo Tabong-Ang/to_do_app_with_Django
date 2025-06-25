@@ -9,19 +9,19 @@ def addTask(request):
     if task:
         new_task = Task(task=task)
         new_task.save()
-    return redirect('home')
+    return redirect('index')
 
 def mark_as_done(request, pk):
     task = get_object_or_404(Task, pk=pk)
     task.is_completed = True
     task.save()
-    return redirect('home')
+    return redirect('index')
 
 def mark_as_undone(request, pk):
     task = get_object_or_404(Task, pk=pk)
     task.is_completed = False
     task.save()
-    return redirect('home')
+    return redirect('index')
 
 def edit_task(request, pk):
     get_task = get_object_or_404(Task, pk=pk)
@@ -29,7 +29,7 @@ def edit_task(request, pk):
         new_task = request.POST['task']
         get_task.task = new_task
         get_task.save()
-        return redirect('home')
+        return redirect('index')
     else:
         context = {
             'get_task' : get_task,
@@ -39,4 +39,4 @@ def edit_task(request, pk):
 def delete_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
     task.delete()
-    return redirect('home')
+    return redirect('index')
